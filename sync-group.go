@@ -6,6 +6,8 @@ import (
 )
 
 // SyncGroup is a group of methods that can be executed in parallel.
+// All the SyncGroup methods are executed in parallel once the Run method is invoked.
+// Add methods to the SyncGroup using the parallelize.AddMethod method.
 type SyncGroup struct {
 	methods []executable
 	errors  *GroupError
