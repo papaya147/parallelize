@@ -25,8 +25,8 @@ import (
 	"github.com/papaya147/parallelize"
 )
 
-func someCoolParallelFunction(ctx context.Context, a int, b *int) error {
-	*b = a + 1
+func someCoolParallelFunction(ctx context.Context, input int, output *int) error {
+	*output = input + 1
 	return nil
 }
 
