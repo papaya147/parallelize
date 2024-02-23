@@ -22,6 +22,6 @@ func newOutputArgMethod[I, O any](method func(context.Context, I, O) error, args
 	}
 }
 
-func (m outputArgMethod[I, O]) Execute() error {
+func (m outputArgMethod[I, O]) execute() error {
 	return m.method(m.args.Context, m.args.Arg1, m.args.Arg2)
 }

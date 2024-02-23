@@ -1,5 +1,5 @@
 package parallelize
 
-type Executable interface {
-	Execute() error
+type executable interface {
+	execute() error
 }
