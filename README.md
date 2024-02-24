@@ -31,8 +31,8 @@ func someCoolParallelFunction(ctx context.Context, input int, output *int) error
 }
 
 func anotherFunction(ctx context.Context, input int) error {
-    fmt.Println(input)
-    return nil
+	fmt.Println(input)
+	return nil
 }
 
 func main() {
@@ -52,10 +52,10 @@ func main() {
 		Output:  &c,
 	})
 
-    parallelize.AddMethodWithArgs(group, anotherFunction, parallelize.MethodWithArgsParams[int]{
-        Context: context.TODO(),
-        Input:   10,
-    })
+	parallelize.AddMethodWithArgs(group, anotherFunction, parallelize.MethodWithArgsParams[int]{
+		Context: context.TODO(),
+		Input:   10,
+	})
 
 	if err := group.Run(); err != nil {
 		fmt.Println(err)
