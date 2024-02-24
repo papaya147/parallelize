@@ -30,22 +30,32 @@ func someCoolParallelFunction(ctx context.Context, input int, output *int) error
 	return nil
 }
 
+func anotherFunction(ctx context.Context, input int) error {
+    fmt.Println(input)
+    return nil
+}
+
 func main() {
 	group := parallelize.NewSyncGroup()
 
 	var b int
-	parallelize.AddMethod(group, someCoolParallelFunction, parallelize.OutputArgMethodArgs[int, *int]{
+	parallelize.AddOutputtingMethodWithArgs(group, someCoolParallelFunction, parallelize.OutputtingMethodWithArgsParams[int, *int]{
 		Context: context.TODO(),
-		Arg1:    1,
-		Arg2:    &b,
+		Input:   1,
+		Output:  &b,
 	})
 
 	var c int
-	parallelize.AddMethod(group, someCoolParallelFunction, parallelize.OutputArgMethodArgs[int, *int]{
+	parallelize.AddOutputtingMethodWithArgs(group, someCoolParallelFunction, parallelize.OutputtingMethodWithArgsParams[int, *int]{
 		Context: context.TODO(),
-		Arg1:    5,
-		Arg2:    &c,
+		Input:   5,
+		Output:  &c,
 	})
+
+    parallelize.AddMethodWithArgs(group, anotherFunction, parallelize.MethodWithArgsParams[int]{
+        Context: context.TODO(),
+        Input:   10,
+    })
 
 	if err := group.Run(); err != nil {
 		fmt.Println(err)

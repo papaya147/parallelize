@@ -22,18 +22,18 @@ func TestRun(t *testing.T) {
 
 	a := 6
 	b := 0
-	AddMethod(group, testFunction1, OutputArgMethodArgs[int, *int]{
+	AddOutputtingMethodWithArgs(group, testFunction1, OutputtingMethodWithArgsParams[int, *int]{
 		Context: context.Background(),
-		Arg1:    a,
-		Arg2:    &b,
+		Input:   a,
+		Output:  &b,
 	})
 
 	c := 6
 	d := 7
-	AddMethod(group, testFunction2, OutputArgMethodArgs[*int, *int]{
+	AddOutputtingMethodWithArgs(group, testFunction2, OutputtingMethodWithArgsParams[*int, *int]{
 		Context: context.Background(),
-		Arg1:    &c,
-		Arg2:    &d,
+		Input:   &c,
+		Output:  &d,
 	})
 
 	require.Equal(t, a, 6)
@@ -53,12 +53,12 @@ func TestAddMethod(t *testing.T) {
 
 	a := 6
 	b := 0
-	arg := OutputArgMethodArgs[int, *int]{
+	arg := OutputtingMethodWithArgsParams[int, *int]{
 		Context: context.Background(),
-		Arg1:    a,
-		Arg2:    &b,
+		Input:   a,
+		Output:  &b,
 	}
-	AddMethod(group, testFunction1, arg)
+	AddOutputtingMethodWithArgs(group, testFunction1, arg)
 
 	require.Equal(t, a, 6)
 	require.Equal(t, b, 0)

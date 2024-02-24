@@ -18,11 +18,31 @@ func NewSyncGroup() *SyncGroup {
 	return &SyncGroup{}
 }
 
-// AddMethod adds a method to the SyncGroup.
-// The method should take an input and output and return an error.
-// The input and output can be any type.
-func AddMethod[I, O any](group *SyncGroup, method func(context.Context, I, O) error, args OutputArgMethodArgs[I, O]) {
-	group.methods = append(group.methods, newOutputArgMethod(method, args))
+// AddOutputtingMethoWithArgs adds a method to the SyncGroup.
+// The method should take an input and output pointer and return an error.
+// The input and output can be of any type.
+func AddOutputtingMethodWithArgs[I, O any](group *SyncGroup, method OutputtingMethodWithArgsSignature[I, O], args OutputtingMethodWithArgsParams[I, O]) {
+	group.methods = append(group.methods, newOutputtingMethodWithArgs(method, args))
+}
+
+// AddOutputtingMethodWithoutArgs adds a method to the SyncGroup.
+// The method should take an output pointer and return an error.
+// The output can be of any type.
+func AddOutputtingMethodWithoutArgs[O any](group *SyncGroup, method OutputtingMethodWithoutArgsSignature[O], args OutputtingMethodWithoutArgsParams[O]) {
+	group.methods = append(group.methods, newOutputtingMethodWithoutArgs(method, args))
+}
+
+// AddMethodWithArgs adds a method to the SyncGroup.
+// The method should take an input and return an error.
+// The input can be of any type.
+func AddMethodWithArgs[I any](group *SyncGroup, method MethodWithArgsSignature[I], args MethodWithArgsParams[I]) {
+	group.methods = append(group.methods, newMethodWithArgs(method, args))
+}
+
+// AddMethodWithoutArgs adds a method to the SyncGroup.
+// The method should return an error.
+func AddMethodWithoutArgs(group *SyncGroup, method MethodWithoutArgsSignature, ctx context.Context) {
+	group.methods = append(group.methods, newMethodWithoutArgs(method, ctx))
 }
 
 // Run executes the methods in the SyncGroup in parallel.
