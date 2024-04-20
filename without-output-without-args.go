@@ -13,7 +13,7 @@ type WithoutOutputWithoutArgsChannels struct {
 
 func (c WithoutOutputWithoutArgsChannels) Read() error {
 	if len(c.err) == 0 {
-		return errors.New("no elements in channel")
+		return errors.New("no elements in channel, maybe you didn't execute?")
 	}
 	return <-c.err
 }

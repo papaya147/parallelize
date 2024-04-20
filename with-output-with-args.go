@@ -14,7 +14,7 @@ type WithOutputWithArgsChannels[O any] struct {
 
 func (c WithOutputWithArgsChannels[O]) Read() (O, error) {
 	if len(c.output) == 0 || len(c.err) == 0 {
-		return *new(O), errors.New("no elements in channel")
+		return *new(O), errors.New("no elements in channel, maybe you didn't execute?")
 	}
 	return <-c.output, <-c.err
 }
