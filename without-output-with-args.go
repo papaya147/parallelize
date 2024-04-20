@@ -5,12 +5,18 @@ import (
 	"errors"
 )
 
+// Use this signature if you want to parallelize a method
+//   - Without output
+//   - With arguments
 type WithoutOutputWithArgsSignature[I any] func(context.Context, I) error
 
+// Output channels for method without output and with args.
 type WithoutOutputWithArgsChannels struct {
 	err chan error
 }
 
+// Read output from channels. This method will throw an error if the channels are empty,
+// due to the methods not being executed.
 func (c WithoutOutputWithArgsChannels) Read() error {
 	if len(c.err) == 0 {
 		return errors.New("no elements in channel, maybe you didn't execute?")
@@ -18,6 +24,8 @@ func (c WithoutOutputWithArgsChannels) Read() error {
 	return <-c.err
 }
 
+// Wrapper for method without output and with args.
+// The wrapper houses the method, the context, the input and the channels.
 type WithoutOutputWithArgsWrapper[I any] struct {
 	method   WithoutOutputWithArgsSignature[I]
 	ctx      context.Context
