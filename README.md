@@ -57,3 +57,8 @@ func main() {
 ```
 
 ### Supported Methods
+
+- Method with output and with args
+- Method with output and without args
+- Method without output and with args
+- Method without output and without args
